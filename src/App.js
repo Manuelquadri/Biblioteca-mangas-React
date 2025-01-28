@@ -4,7 +4,7 @@ import './App.css';
 
 
 const App = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(() => []);
   const [filters, setFilters] = useState({
     year: 'all',
     rating: 'all',
@@ -97,20 +97,21 @@ const App = () => {
     setFilters({
       year: 'all',
       rating: 'all',
-      tag: 'all'
+      tags: [] // Corregir de 'tag' a 'tags'
     });
     setSearchTerm('');
+    setTagSearch('');
   };
 
   const getUniqueOptions = (key) => {
-    if (key === 'tags') {
-      return [...new Set(data.flatMap(item => item.tags))].sort();
-    }
-    return [...new Set(data.map(item => item[key]))].sort((a, b) => {
-      if (key === 'year') return b - a;
-      if (key === 'rating') return b - a;
-      return a.toString().localeCompare(b.toString());
-    });
+    if (!Array.isArray(data)) return [];
+    
+    return [...new Set(
+      data.flatMap(item => {
+        if (key === 'tags') return item.tags || [];
+        return item[key] !== undefined ? item[key] : [];
+      })
+    )].sort();
   };
 
   const renderRatingStars = (rating) => {
@@ -207,12 +208,7 @@ const App = () => {
             ))}
           </select>
 
-          <select name="tag" value={filters.tag} onChange={handleFilterChange}>
-            <option value="all">Todos los tags</option>
-            {getUniqueOptions('tags').map(tag => (
-              <option key={tag} value={tag}>{tag}</option>
-            ))}
-          </select>
+          
 
           <button onClick={resetFilters} className="reset-btn">Reiniciar filtros</button>
         </div>
