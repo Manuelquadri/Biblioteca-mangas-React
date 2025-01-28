@@ -1,0 +1,275 @@
+:root {
+  --primary-color: #2a2a2a;
+  --secondary-color: #f05454;
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  text-align: center;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.filters-container {
+  margin-bottom: 2rem;
+  background: #2a2a2a;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 1rem;
+  background: #333;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.filter-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+select {
+  padding: 10px;
+  background: #333;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reset-btn {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card {
+  background: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-header {
+  padding: 1rem;
+  background: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}
+
+.badge.manga { background: #4CAF50; }
+.badge.manhwa { background: #2196F3; }
+.badge.manhua { background: #9C27B0; }
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-body p {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+@media (max-width: 768px) {
+  .filter-group {
+    grid-template-columns: 1fr;
+  }
+}
+.card {
+  background: #2a2a2a;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-media {
+  height: 250px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card-media:empty {
+  display: none;
+}
+
+.card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Ajusta el diseño cuando no hay imagen */
+.card:has(.card-media:empty) .card-content {
+  padding-top: 1.5rem;
+}
+
+.card:has(.card-media:empty) {
+  min-height: auto;
+}
+/* Filtro de tags mejorado */
+.tags-filter {
+  background: #2a2a2a;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.tags-search input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  background: #333;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 5px;
+}
+
+.tags-list {
+  max-height: 200px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+
+.tag-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tag-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #333;
+  border: 2px solid #444;
+  border-radius: 4px;
+}
+
+.tag-checkbox:hover input ~ .checkmark {
+  background-color: #3a3a3a;
+}
+
+.tag-checkbox input:checked ~ .checkmark {
+  background-color: #f05454;
+  border-color: #f05454;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.tag-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.selected-tag {
+  background: #f05454;
+  padding: 5px 10px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.selected-tag button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.selected-tag button:hover {
+  color: #ffd700;
+}
